@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import EditTitle from "./EditTitle";
 
 export default class Column extends Component {
     static propTypes = {
@@ -11,20 +12,36 @@ export default class Column extends Component {
         super(props);
 
         this.state = {
-            title: this.props.title
+            title: this.props.title,
+            editTitle: false
         };
 
-        this.handleAddingTitle = this.handleAddingTitle.bind(this);
+        this.handleEditTitle = this.handleEditTitle.bind(this);
+        this.handleAddNewTitle = this.handleAddNewTitle.bind(this);
     }
 
-    handleAddingTitle(title) {
-        this.setState(() => ({title, initial: false}));
+    handleEditTitle() {
+        this.setState(() => ({editTitle: true}))
+    }
+
+    handleAddNewTitle(title) {
+        this.setState(() => ({editTitle: false, title}))
     }
 
     render() {
         return (
             <div className={`column`}>
-                <h2 className={`title`}>{this.state.title}</h2>
+                {this.state.editTitle ?
+                <EditTitle
+                    title={this.state.title}
+                    onAddNewTitle={this.handleAddNewTitle}
+                /> :
+                <h2
+                    onDoubleClick={this.handleEditTitle}
+                    className={`title`}>
+                    {this.state.title}
+                </h2>
+                }
             </div>
         );
     }

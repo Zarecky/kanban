@@ -40,6 +40,8 @@
     font-weight: bold;
     font-size: 13px;
     line-height: 19px;
+    width: 100%;
+    box-sizing: border-box;
     color: var(--main-color);
 }
 
