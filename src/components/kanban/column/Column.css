@@ -1,0 +1,23 @@
+.title-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 19px;
+    flex-basis: 100%;
+    flex-grow: 10;
+    box-sizing: border-box;
+    color: var(--main-color);
+}
+
+.title-btnRemove {
+    display: none;
+}
+
+.title-container:hover .title-btnRemove {
+    display: flex;
+}

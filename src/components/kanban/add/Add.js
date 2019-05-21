@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {FaCross} from "../../icons";
+import Cancel from "../Cancel/Cancel";
 
 export default class Add extends React.Component {
     static propTypes = {
@@ -55,12 +56,7 @@ export default class Add extends React.Component {
                 <button onClick={this.handleClick} className={`button`}>
                     {this.props.buttonText}
                 </button>
-                <button
-                    style={{display: `flex`, alignItems: 'center'}}
-                    onClick={this.props.onClickCancel}
-                >
-                    <FaCross className={`icon`}/>
-                </button>
+                <Cancel onClick={this.props.onClickCancel}/>
             </div>
         ];
     }

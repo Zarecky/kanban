@@ -1,11 +1,15 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import EditTitle from "./EditTitle";
+import Cancel from "../Cancel/Cancel";
+import './Column.css';
 
 export default class Column extends Component {
     static propTypes = {
+        id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
         tasks: PropTypes.arrayOf(PropTypes.string),
+        onRemove: PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -39,11 +43,17 @@ export default class Column extends Component {
                     title={this.state.title}
                     onAddNewTitle={this.handleAddNewTitle}
                 /> :
-                <h2
-                    onDoubleClick={this.handleEditTitle}
-                    className={`title`}>
-                    {this.state.title}
-                </h2>
+                <div className={`title-container`}>
+                    <h2
+                        onDoubleClick={this.handleEditTitle}
+                        className={`title`}>
+                        {this.state.title}
+                    </h2>
+                    <div className={`title-btnRemove`}>
+                        <Cancel onClick={() => this.props.onRemove(this.props.id)}/>
+                    </div>
+
+                </div>
                 }
             </div>
         );

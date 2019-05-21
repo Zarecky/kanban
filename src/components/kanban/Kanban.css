@@ -28,21 +28,11 @@
     grid-auto-flow: row;
     grid-row-gap: 8px;
     align-items: start;
-    justify-items: start;
+    justify-items: stretch;
     font-family: "Montserrat", sans-serif;
     background: var(--main-bg-color);
     color: var(--main-color);
     border-radius: 3px;
-}
-
-.title {
-    font-style: normal;
-    font-weight: bold;
-    font-size: 13px;
-    line-height: 19px;
-    width: 100%;
-    box-sizing: border-box;
-    color: var(--main-color);
 }
 
 .input {
@@ -57,10 +47,6 @@
 .input::placeholder {
     color: var(--main-placeholder-color);
     font-weight: lighter;
-}
-
-.input.invalid {
-    border: 2px darkred;
 }
 
 .input.invalid::placeholder {

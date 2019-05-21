@@ -7,8 +7,8 @@ import Column from "./column/Column";
 export default class Kanban extends Component {
     static propTypes = {
         columns: PropTypes.arrayOf(PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            text: PropTypes.string,
+            id: PropTypes.number.isRequired,
+            text: PropTypes.string.isRequired,
             tasks: PropTypes.arrayOf(PropTypes.string)
         }))
     };
@@ -20,12 +20,19 @@ export default class Kanban extends Component {
             columns: props.columns ? props.columns : []
         };
 
-        this.handleCreateColumn = this.handleCreateColumn.bind(this)
+        this.handleCreateColumn = this.handleCreateColumn.bind(this);
+        this.handleRemoveColumn = this.handleRemoveColumn.bind(this);
     }
 
     handleCreateColumn(title) {
         const columns = this.state.columns;
         columns.push({id: columns.length, title, tasks: []});
+        this.setState(() => ({columns}));
+    }
+
+    handleRemoveColumn(id) {
+        const columns = this.state.columns;
+        columns.splice(id, 1);
         this.setState(() => ({columns}));
     }
 
@@ -40,8 +47,10 @@ export default class Kanban extends Component {
                 {this.state.columns.map(col => (
                     <Column
                         key={col.id}
+                        id={col.id}
                         title={col.title}
                         tasks={col.tasks}
+                        onRemove={this.handleRemoveColumn}
                     />
                 ))}
                 <CreateColumn onClick={this.handleCreateColumn} />
