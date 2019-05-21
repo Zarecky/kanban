@@ -8,7 +8,7 @@ export default class Kanban extends Component {
     static propTypes = {
         columns: PropTypes.arrayOf(PropTypes.shape({
             id: PropTypes.string.isRequired,
-            title: PropTypes.string,
+            text: PropTypes.string,
             tasks: PropTypes.arrayOf(PropTypes.string)
         }))
     };

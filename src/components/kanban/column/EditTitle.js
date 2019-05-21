@@ -37,10 +37,7 @@ export default class EditTitle extends React.Component {
     }
 
     addNewTitle() {
-        if (this.state.title !== ``) {
-            console.log('Edited');
-            this.props.onAddNewTitle(this.state.title);
-        }
+        this.props.onAddNewTitle(this.state.title);
     }
 
     render() {

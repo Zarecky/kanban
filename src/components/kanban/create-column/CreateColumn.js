@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FaPlus } from 'react-icons/fa';
-import AddTitleColumn from "./AddTitleColumn";
+import Add from "../add/Add";
 import './CreateColumn.css';
 
 export default class CreateColumn extends React.Component {
@@ -31,7 +31,7 @@ export default class CreateColumn extends React.Component {
     }
 
     handleCancel() {
-        this.setState(() => ({isAddingTitle: false, title: ''}))
+        this.setState(() => ({isAddingTitle: false, text: ''}))
     }
 
     render() {
@@ -42,8 +42,10 @@ export default class CreateColumn extends React.Component {
                     <FaPlus className={`icon`} style={{marginRight: `8px`}}/>
                     Добавить еще оду колонку
                 </button> :
-                <AddTitleColumn
-                    onClickAddTitle={this.handleAddColumn}
+                <Add
+                    buttonText={`Добавить колонку`}
+                    placeholder={`Введите название колонки`}
+                    onClick={this.handleAddColumn}
                     onClickCancel={this.handleCancel}
                 />}
             </div>

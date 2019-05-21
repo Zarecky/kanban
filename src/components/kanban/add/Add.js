@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {FaCross} from "../../icons";
 
-export default class AddTitleColumn extends React.Component {
+export default class Add extends React.Component {
     static propTypes = {
-        onClickAddTitle: PropTypes.func.isRequired,
+        placeholder: PropTypes.string,
+        buttonText: PropTypes.string,
+        onClick: PropTypes.func.isRequired,
         onClickCancel: PropTypes.func.isRequired
     };
 
@@ -12,7 +14,7 @@ export default class AddTitleColumn extends React.Component {
         super(props);
 
         this.state = {
-            title: ""
+            text: ""
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -21,15 +23,15 @@ export default class AddTitleColumn extends React.Component {
     }
 
     handleChange(e) {
-        const title = e.target.value;
+        const text = e.target.value;
         this.setState(() => ({
-            title
+            text
         }));
     }
 
     handleClick() {
-        if (this.state.title !== ``) {
-            this.props.onClickAddTitle(this.state.title);
+        if (this.state.text !== ``) {
+            this.props.onClick(this.state.text);
         }
     }
 
@@ -46,12 +48,12 @@ export default class AddTitleColumn extends React.Component {
                 onKeyPress={this.handleEnter}
                 className={`input`}
                 type="text"
-                value={this.state.title}
-                placeholder={`Введите название колонки`}
+                value={this.state.text}
+                placeholder={this.props.placeholder}
             />,
             <div className={`addTitle-controls`}>
                 <button onClick={this.handleClick} className={`button`}>
-                    Добавить колонку
+                    {this.props.buttonText}
                 </button>
                 <button
                     style={{display: `flex`, alignItems: 'center'}}

@@ -25,7 +25,10 @@ export default class Column extends Component {
     }
 
     handleAddNewTitle(title) {
-        this.setState(() => ({editTitle: false, title}))
+        this.setState((prevState) => ({
+            editTitle: false,
+            title: title.length > 0 ? title : prevState.title
+        }));
     }
 
     render() {
