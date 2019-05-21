@@ -1,0 +1,80 @@
+.kanban {
+    background: url("background.jpg") fixed center;
+    background-size: cover;
+    height: 100%;
+    min-width: 100%;
+    box-sizing: border-box;
+    position: absolute;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-auto-flow: column;
+    grid-auto-columns: 275px;
+    grid-column-gap: 12px;
+    align-items: start;
+    padding: 20px 21px;
+
+    --main-subject-color: #6B808C;
+    --main-placeholder-color: #B8B9BB;
+    --main-btn-bg-color: #39C071;
+    --main-btn-color: white;
+    --main-color: black;
+    --main-bg-color: #DFE3E6;
+}
+
+.column {
+    padding: 12px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-flow: row;
+    grid-row-gap: 8px;
+    align-items: start;
+    justify-items: start;
+    font-family: "Montserrat", sans-serif;
+    background: var(--main-bg-color);
+    color: var(--main-color);
+    border-radius: 3px;
+}
+
+.title {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 19px;
+    color: var(--main-color);
+}
+
+.input {
+    padding: 8px 12px;
+    color: var(--main-color);
+    border-radius: 3px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0px 1px 4px rgba(9, 45, 66, 0.25);
+}
+
+.input::placeholder {
+    color: var(--main-placeholder-color);
+    font-weight: lighter;
+}
+
+.input.invalid {
+    border: 2px darkred;
+}
+
+.input.invalid::placeholder {
+    color: darkred;
+}
+
+.button {
+    background: var(--main-btn-bg-color);
+    color: var(--main-btn-color);
+    font-weight: bolder;
+    padding: 8px 7px;
+    border-radius: 3px;
+}
+
+.icon {
+    color: var(--main-subject-color);
+    width: 15px;
+    height: 15px;
+}
