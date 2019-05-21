@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FaPlus } from 'react-icons/fa';
-import Add from "../add/Add";
-import './CreateColumn.css';
+import AddButton from "../add-button/AddButton";
+import Cancel from "../cancel/Cancel";
 
 export default class CreateColumn extends React.Component {
     static propTypes = {
@@ -13,41 +12,65 @@ export default class CreateColumn extends React.Component {
         super(props);
 
         this.state = {
+            title: ``,
             isAddingTitle: false
         };
 
         this.handleAddTitle = this.handleAddTitle.bind(this);
         this.handleAddColumn = this.handleAddColumn.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleEnter = this.handleEnter.bind(this);
     }
 
     handleAddTitle() {
         this.setState(() => ({isAddingTitle: true}));
     }
 
-    handleAddColumn(title) {
+    handleAddColumn() {
+        if (this.state.title === ``) return;
         this.handleCancel();
-        this.props.onClick(title);
+        this.props.onClick(this.state.title);
     }
 
     handleCancel() {
-        this.setState(() => ({isAddingTitle: false, text: ''}))
+        this.setState(() => ({isAddingTitle: false, title: ``}))
+    }
+
+    handleChange(e) {
+        const title =  e.target.value;
+        this.setState(() => ({title}))
+    }
+
+    handleEnter(e) {
+        if (e.key === `Enter`) {
+            this.handleAddColumn()
+        }
     }
 
     render() {
         return (
             <div className={`column`}>
                 {!this.state.isAddingTitle ?
-                <button onClick={this.handleAddTitle} className={`buttonAddColumn`}>
-                    <FaPlus className={`icon`} style={{marginRight: `8px`}}/>
-                    Добавить еще оду колонку
-                </button> :
-                <Add
-                    buttonText={`Добавить колонку`}
+                <AddButton
+                    text={`Добавить еще одну колонку`}
+                    onClick={this.handleAddTitle}/> :
+                [<input
+                    autoFocus
+                    type="text"
+                    className={`input`}
+                    onChange={this.handleChange}
+                    onKeyPress={this.handleEnter}
                     placeholder={`Введите название колонки`}
-                    onClick={this.handleAddColumn}
-                    onClickCancel={this.handleCancel}
-                />}
+                    value={this.state.title}
+                />,
+                <div className={`add-controls`}>
+                    <button onClick={this.handleAddColumn} className={`button`}>
+                        Добавить колонку
+                    </button>
+                    <Cancel onClick={this.handleCancel}/>
+                </div>
+                ]}
             </div>
         );
     }

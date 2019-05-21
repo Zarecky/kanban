@@ -38,10 +38,14 @@
 .input {
     padding: 8px 12px;
     color: var(--main-color);
+    background: white;
     border-radius: 3px;
     width: 100%;
     box-sizing: border-box;
     box-shadow: 0px 1px 4px rgba(9, 45, 66, 0.25);
+    font-family: "Montserrat", sans-serif;
+    font-size: 13px;
+    line-height: 19px;
 }
 
 .input::placeholder {
@@ -52,6 +56,11 @@
 .input.invalid::placeholder {
     color: darkred;
 }
+
+.input-textarea {
+    resize: none;
+}
+
 
 .button {
     background: var(--main-btn-bg-color);
@@ -65,4 +74,12 @@
     color: var(--main-subject-color);
     width: 15px;
     height: 15px;
+}
+
+.add-controls {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

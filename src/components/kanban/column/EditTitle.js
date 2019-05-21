@@ -43,6 +43,7 @@ export default class EditTitle extends React.Component {
     render() {
         return (
             <input
+                autoFocus
                 onChange={this.handleChange}
                 onKeyPress={this.handleEnter}
                 onBlur={this.handleBlur}
