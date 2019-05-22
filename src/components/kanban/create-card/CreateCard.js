@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AddButton from "../add-button/AddButton";
-import EditCard from "../edit-card/EditCard";
+import EditText from "../edit-text/EditText";
 
 export default class CreateCard extends React.Component {
     static propTypes = {
@@ -39,7 +39,12 @@ export default class CreateCard extends React.Component {
                 text={`Добавить еще одну карточку`}
                 onClick={this.handleToAddCard}
             /> :
-            <EditCard
+            <EditText
+                visibleControls
+                useBlurForComplete
+                startRows={2}
+                placeholder={`Введите название карточки`}
+                buttonText={`Добавить карточку`}
                 onEdit={this.handleAddCard}
                 onCancel={this.handleCancel}
             />

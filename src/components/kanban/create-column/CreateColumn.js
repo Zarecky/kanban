@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AddButton from "../add-button/AddButton";
-import Cancel from "../cancel/Cancel";
+import EditText from "../edit-text/EditText";
 
 export default class CreateColumn extends React.Component {
     static propTypes = {
@@ -12,41 +12,27 @@ export default class CreateColumn extends React.Component {
         super(props);
 
         this.state = {
-            title: ``,
             isAddingTitle: false
         };
 
         this.handleAddTitle = this.handleAddTitle.bind(this);
         this.handleAddColumn = this.handleAddColumn.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleEnter = this.handleEnter.bind(this);
     }
 
     handleAddTitle() {
         this.setState(() => ({isAddingTitle: true}));
     }
 
-    handleAddColumn() {
-        if (this.state.title === ``) return;
+    handleAddColumn(title) {
         this.handleCancel();
-        this.props.onClick(this.state.title);
+        this.props.onClick(title);
     }
 
     handleCancel() {
-        this.setState(() => ({isAddingTitle: false, title: ``}))
+        this.setState(() => ({isAddingTitle: false}))
     }
 
-    handleChange(e) {
-        const title =  e.target.value;
-        this.setState(() => ({title}))
-    }
-
-    handleEnter(e) {
-        if (e.key === `Enter`) {
-            this.handleAddColumn()
-        }
-    }
 
     render() {
         return (
@@ -55,22 +41,14 @@ export default class CreateColumn extends React.Component {
                 <AddButton
                     text={`Добавить еще одну колонку`}
                     onClick={this.handleAddTitle}/> :
-                [<input
-                    autoFocus
-                    type="text"
-                    className={`input`}
-                    onChange={this.handleChange}
-                    onKeyPress={this.handleEnter}
+                <EditText
+                    visibleControls
+                    text={this.state.title}
                     placeholder={`Введите название колонки`}
-                    value={this.state.title}
-                />,
-                <div className={`add-controls`}>
-                    <button onClick={this.handleAddColumn} className={`button`}>
-                        Добавить колонку
-                    </button>
-                    <Cancel onClick={this.handleCancel}/>
-                </div>
-                ]}
+                    buttonText={`Добавить колонку`}
+                    onEdit={this.handleAddColumn}
+                    onCancel={this.handleCancel}
+                />}
             </div>
         );
     }

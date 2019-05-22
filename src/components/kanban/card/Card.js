@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import EditCard from "../edit-card/EditCard";
+import EditText from "../edit-text/EditText";
 import './Card.css'
+import Cancel from "../cancel/Cancel";
 
 export default class Card extends React.Component {
     static propTypes = {
+        id: PropTypes.number.isRequired,
         text: PropTypes.string.isRequired,
         onEdit: PropTypes.func.isRequired,
         onRemove: PropTypes.func.isRequired
@@ -44,9 +46,17 @@ export default class Card extends React.Component {
                 className={`card`}
             >
                 {this.state.text}
+                <div className={`card-removeBtn`}>
+                    <Cancel onClick={() => this.props.onRemove(this.props.id)}/>
+                </div>
             </div> :
-            <EditCard
+            <EditText
+                visibleControls
+                useBlurForComplete
                 text={this.state.text}
+                startRows={2}
+                placeholder={`Введите название карточки`}
+                buttonText={`Добавить карточку`}
                 onEdit={this.handleEdit}
                 onCancel={this.handleCancel}
             />;

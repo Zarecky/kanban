@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import EditTitle from "./EditTitle";
 import Cancel from "../cancel/Cancel";
 import './Column.css';
 import Card from "../card/Card";
 import CreateCard from "../create-card/CreateCard";
+import EditText from "../edit-text/EditText";
 
 export default class Column extends Component {
     static propTypes = {
@@ -63,9 +63,11 @@ export default class Column extends Component {
         return (
             <div className={`column`}>
                 {this.state.editTitle ?
-                <EditTitle
-                    title={this.state.title}
-                    onAddNewTitle={this.handleAddNewTitle}
+                <EditText
+                    useBlurForComplete
+                    placeholder={`Введите навзание колонки`}
+                    text={this.state.title}
+                    onEdit={this.handleAddNewTitle}
                 /> :
                 <div className={`title-container`}>
                     <h2
@@ -77,14 +79,17 @@ export default class Column extends Component {
                         <Cancel onClick={() => this.props.onRemove(this.props.id)}/>
                     </div>
                 </div>}
-                {this.state.cards.map(card => (
-                    <Card
-                        key={card.id}
-                        text={card.text}
-                        onEdit={this.handleEditCard}
-                        onRemove={this.handleRemoveCard}
-                    />
-                ))}
+                    <div className={`column-wrapper`}>
+                        {this.state.cards.map(card => (
+                            <Card
+                                key={card.id}
+                                id={card.id}
+                                text={card.text}
+                                onEdit={this.handleEditCard}
+                                onRemove={this.handleRemoveCard}
+                            />
+                        ))}
+                    </div>
                 <CreateCard
                     onClick={this.handleAddNewCard}
                 />
