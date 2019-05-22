@@ -20,9 +20,12 @@ export default class Card extends React.Component {
             text: props.text
         };
 
+        this.card = React.createRef();
+
         this.handleToEdit = this.handleToEdit.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
+        this.scrollIntoView = this.scrollIntoView.bind(this);
     }
 
     handleToEdit() {
@@ -39,26 +42,36 @@ export default class Card extends React.Component {
         this.setState(() => ({isEditingCard: false}))
     }
 
+    scrollIntoView() {
+        this.card.current.scrollIntoView(false);
+    }
+
     render() {
-        return !this.state.isEditingCard ?
+        return (
             <div
-                onDoubleClick={this.handleToEdit}
-                className={`card`}
-            >
-                {this.state.text}
-                <div className={`card-removeBtn`}>
-                    <Cancel onClick={() => this.props.onRemove(this.props.id)}/>
-                </div>
-            </div> :
-            <EditText
-                visibleControls
-                useBlurForComplete
-                text={this.state.text}
-                startRows={2}
-                placeholder={`Введите название карточки`}
-                buttonText={`Добавить карточку`}
-                onEdit={this.handleEdit}
-                onCancel={this.handleCancel}
-            />;
+                ref={this.card}
+                className={`card-container`}>
+                {!this.state.isEditingCard ?
+                <div
+                    onDoubleClick={this.handleToEdit}
+                    className={`card`}
+                >
+                    {this.state.text}
+                    <div className={`card-removeBtn`}>
+                        <Cancel onClick={() => this.props.onRemove(this.props.id)}/>
+                    </div>
+                </div> :
+                <EditText
+                    visibleControls
+                    useBlurForComplete
+                    text={this.state.text}
+                    startRows={2}
+                    placeholder={`Введите название карточки`}
+                    buttonText={`Добавить карточку`}
+                    onEdit={this.handleEdit}
+                    onCancel={this.handleCancel}
+                />}
+            </div>
+        )
     }
 }

@@ -1,3 +1,12 @@
+.card-container {
+    margin-bottom: 8px;
+    width: 100%;
+}
+
+.card-container .editText {
+    padding: 0;
+}
+
 .card {
     padding: 8px 12px;
     color: var(--main-color);
@@ -12,7 +21,6 @@
     white-space: pre-wrap;
     word-break: break-word;
     position: relative;
-    margin-bottom: 8px;
 }
 
 .card:last-child {

@@ -2,5 +2,5 @@
     display: flex;
     align-items: center;
     color: var(--main-subject-color);
-    padding: 12px;
+    margin: 12px;
 }

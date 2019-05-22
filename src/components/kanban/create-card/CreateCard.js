@@ -42,6 +42,7 @@ export default class CreateCard extends React.Component {
             <EditText
                 visibleControls
                 useBlurForComplete
+                cancelOnBlurIfEmpty
                 startRows={2}
                 placeholder={`Введите название карточки`}
                 buttonText={`Добавить карточку`}

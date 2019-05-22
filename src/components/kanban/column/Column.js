@@ -23,6 +23,8 @@ export default class Column extends Component {
             editTitle: false
         };
 
+        this.lastCard = React.createRef();
+
         this.handleEditTitle = this.handleEditTitle.bind(this);
         this.handleAddNewTitle = this.handleAddNewTitle.bind(this);
         this.handleAddNewCard = this.handleAddNewCard.bind(this);
@@ -45,6 +47,7 @@ export default class Column extends Component {
         const cards = this.state.cards;
         cards.push({id: cards.length, text});
         this.setState(() => ({cards}));
+        this.lastCard.current.scrollIntoView();
     }
 
     handleEditCard(id, text) {
@@ -79,9 +82,11 @@ export default class Column extends Component {
                         <Cancel onClick={() => this.props.onRemove(this.props.id)}/>
                     </div>
                 </div>}
-                    <div className={`column-wrapper`}>
-                        {this.state.cards.map(card => (
+                    <div
+                        className={`column-wrapper`}>
+                        {this.state.cards.map((card, i) => (
                             <Card
+                                ref={i === this.state.cards.length-1 ? this.lastCard : null}
                                 key={card.id}
                                 id={card.id}
                                 text={card.text}

@@ -22,10 +22,13 @@
     box-sizing: border-box;
 }
 
+.column-wrapper:empty {
+    padding: 0 12px;
+}
+
 .column-wrapper:last-child {
     margin-bottom: 0;
 }
-
 
 .column-wrapper::-webkit-scrollbar{
     display: none;
@@ -34,7 +37,7 @@
 .title-container {
     display: flex;
     justify-content: space-between;
-    padding: 12px;
+    margin: 12px;
     width: 100%;
     box-sizing: border-box;
 }
