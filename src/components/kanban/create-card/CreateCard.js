@@ -24,19 +24,19 @@ export default class CreateCard extends React.Component {
         this.setState(() => ({isEditingCard: true}));
     }
 
-    handleAddCard(text) {
+    handleAddCard(content) {
         this.handleCancel();
-        this.props.onClick(text);
+        this.props.onClick(content);
     }
 
     handleCancel() {
-        this.setState(() => ({isEditingCard: false, text: ``}))
+        this.setState(() => ({isEditingCard: false, content: ``}))
     }
 
     render() {
         return !this.state.isEditingCard ?
             <AddButton
-                text={`Добавить еще одну карточку`}
+                value={`Добавить еще одну карточку`}
                 onClick={this.handleToAddCard}
             /> :
             <EditText
@@ -45,7 +45,7 @@ export default class CreateCard extends React.Component {
                 cancelOnBlurIfEmpty
                 startRows={2}
                 placeholder={`Введите название карточки`}
-                buttonText={`Добавить карточку`}
+                buttonValue={`Добавить карточку`}
                 onEdit={this.handleAddCard}
                 onCancel={this.handleCancel}
             />

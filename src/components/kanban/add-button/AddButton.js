@@ -6,13 +6,13 @@ import './AddButton.css';
 const AddButton = (props) => (
     <button onClick={props.onClick} className={`addButton`}>
         <FaPlus className={`icon`} style={{marginRight: `8px`}}/>
-        {props.text}
+        {props.value}
     </button>
 );
 
 AddButton.propTypes = {
     onClick: PropTypes.func.isRequired,
-    text: PropTypes.string.isRequired
+    value: PropTypes.string.isRequired
 };
 
 export default AddButton;

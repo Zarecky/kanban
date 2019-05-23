@@ -9,10 +9,10 @@ export default class EditText extends React.Component {
         visibleControls: PropTypes.bool,
         useBlurForComplete: PropTypes.bool,
         cancelOnBlurIfEmpty: PropTypes.bool,
-        text: PropTypes.string,
+        content: PropTypes.string,
         startRows: PropTypes.number,
         placeholder: PropTypes.string.isRequired,
-        buttonText: PropTypes.string,
+        buttonValue: PropTypes.string,
         onEdit: PropTypes.func.isRequired,
         onCancel: PropTypes.func
     };
@@ -26,7 +26,8 @@ export default class EditText extends React.Component {
         super(props);
 
         this.state = {
-            text: props.text ? props.text : ``
+            content: props.content ? props.content : ``,
+            useBlur: true
         };
 
         this.input = React.createRef();
@@ -38,15 +39,16 @@ export default class EditText extends React.Component {
     }
 
     handleEdit() {
-        if (this.state.text !== ``) {
-            this.props.onEdit(this.state.text);
+        console.log('Edit');
+        if (this.state.content !== ``) {
+            this.props.onEdit(this.state.content);
         }
-        this.input.current.focus();
+        this.setState(() => ({useBlur: false}));
     }
 
     handleChange(e) {
-        const text = e.target.value;
-        this.setState(() => ({text}));
+        const content = e.target.value;
+        this.setState(() => ({content, cancel: content === ''}));
     }
 
     handleEnter(e) {
@@ -57,18 +59,21 @@ export default class EditText extends React.Component {
     }
 
     handleBlur() {
-        if (!this.props.useBlurForComplete){
-            return;
+        if (this.state.useBlur) {
+            if (this.state.content === ``) {
+                if (this.props.cancelOnBlurIfEmpty) {
+                    console.log('Cancel');
+                    this.props.onCancel();
+                }
+            } else {
+                if (this.props.useBlurForComplete) {
+                    this.handleEdit()
+                }
+            }
+        } else {
+            this.setState(() => ({useBlur: true}))
         }
-
-        if (!this.props.cancelOnBlurIfEmpty) {
-            this.handleEdit();
-            return;
-        }
-
-        if (this.state.text === ``) {
-            this.props.onCancel();
-        }
+        this.input.current.focus();
     }
 
 
@@ -83,13 +88,13 @@ export default class EditText extends React.Component {
                     className={`input`}
                     onKeyPress={this.handleEnter}
                     placeholder={this.props.placeholder}
-                    value={this.state.text}
+                    value={this.state.content}
                     onBlur={this.handleBlur}
                 />
                 {this.props.visibleControls ?
                 <div className={`add-controls`}>
-                    <button onClick={this.handleEdit} className={`button`}>
-                        {this.props.buttonText}
+                    <button onMouseDown={this.handleEdit} className={`button`}>
+                        {this.props.buttonValue}
                     </button>
                     <Cancel onClick={this.props.onCancel}/>
                 </div> : null}

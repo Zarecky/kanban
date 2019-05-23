@@ -39,15 +39,15 @@ export default class CreateColumn extends React.Component {
             <div className={`column`}>
                 {!this.state.isAddingTitle ?
                 <AddButton
-                    text={`Добавить еще одну колонку`}
+                    value={`Добавить еще одну колонку`}
                     onClick={this.handleAddTitle}/> :
                 <EditText
                     visibleControls
                     useBlurForComplete
                     cancelOnBlurIfEmpty
-                    text={this.state.title}
+                    content={this.state.title}
                     placeholder={`Введите название колонки`}
-                    buttonText={`Добавить колонку`}
+                    buttonValue={`Добавить колонку`}
                     onEdit={this.handleAddColumn}
                     onCancel={this.handleCancel}
                 />}

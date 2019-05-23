@@ -2,24 +2,22 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Cancel from "../cancel/Cancel";
 import './Column.css';
-import Card from "../card/Card";
 import CreateCard from "../create-card/CreateCard";
 import EditText from "../edit-text/EditText";
 
 export default class Column extends Component {
     static propTypes = {
-        id: PropTypes.number.isRequired,
+        id: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
-        cards: PropTypes.arrayOf(PropTypes.object),
-        onRemove: PropTypes.func.isRequired
+        onRemove: PropTypes.func.isRequired,
+        onEditTitle: PropTypes.func.isRequired,
+        onCreateCard: PropTypes.func.isRequired
     };
 
     constructor(props) {
         super(props);
 
         this.state = {
-            title: this.props.title,
-            cards: this.props.cards,
             editTitle: false
         };
 
@@ -27,9 +25,7 @@ export default class Column extends Component {
 
         this.handleEditTitle = this.handleEditTitle.bind(this);
         this.handleAddNewTitle = this.handleAddNewTitle.bind(this);
-        this.handleAddNewCard = this.handleAddNewCard.bind(this);
-        this.handleEditCard = this.handleEditCard.bind(this);
-        this.handleRemoveCard = this.handleRemoveCard.bind(this);
+        this.handleCreateCard = this.handleCreateCard.bind(this);
     }
 
     handleEditTitle() {
@@ -37,29 +33,16 @@ export default class Column extends Component {
     }
 
     handleAddNewTitle(title) {
-        this.setState((prevState) => ({
-            editTitle: false,
-            title: title.length > 0 ? title : prevState.title
+        this.setState(() => ({
+            editTitle: false
         }));
+        this.props.onEditTitle(title, this.props.id);
     }
 
-    handleAddNewCard(text) {
-        const cards = this.state.cards;
-        cards.push({id: cards.length, text});
-        this.setState(() => ({cards}));
-        this.lastCard.current.scrollIntoView();
-    }
-
-    handleEditCard(id, text) {
-        const cards = this.state.cards;
-        cards[id] = {id, text};
-        this.setState(() => ({cards}));
-    }
-
-    handleRemoveCard(id) {
-        const cards = this.state.cards;
-        cards.splice(id, 1);
-        this.setState(() => ({cards}));
+    handleCreateCard(content) {
+        this.props.onCreateCard(this.props.id, content);
+        console.log(this.lastCard.current);
+        this.lastCard.current.scrollIntoView(false);
     }
 
     render() {
@@ -68,15 +51,17 @@ export default class Column extends Component {
                 {this.state.editTitle ?
                 <EditText
                     useBlurForComplete
+                    cancelOnBlurIfEmpty
                     placeholder={`Введите навзание колонки`}
-                    text={this.state.title}
+                    content={this.props.title}
                     onEdit={this.handleAddNewTitle}
+                    onCancel={() => this.setState(() => ({editTitle: false}))}
                 /> :
                 <div className={`title-container`}>
                     <h2
                         onDoubleClick={this.handleEditTitle}
                         className={`title`}>
-                        {this.state.title}
+                        {this.props.title}
                     </h2>
                     <div className={`title-btnRemove`}>
                         <Cancel onClick={() => this.props.onRemove(this.props.id)}/>
@@ -84,19 +69,15 @@ export default class Column extends Component {
                 </div>}
                     <div
                         className={`column-wrapper`}>
-                        {this.state.cards.map((card, i) => (
-                            <Card
-                                ref={i === this.state.cards.length-1 ? this.lastCard : null}
-                                key={card.id}
-                                id={card.id}
-                                text={card.text}
-                                onEdit={this.handleEditCard}
-                                onRemove={this.handleRemoveCard}
-                            />
-                        ))}
+                        {React.Children.map(this.props.children, (child, i) => {
+                            if (i === React.Children.count(this.props.children) - 1) {
+                                const refInner = this.lastCard;
+                                return React.cloneElement(child, {refInner});
+                            } else return child;
+                        })}
                     </div>
                 <CreateCard
-                    onClick={this.handleAddNewCard}
+                    onClick={this.handleCreateCard}
                 />
             </div>
         );
