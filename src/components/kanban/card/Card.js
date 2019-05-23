@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import EditText from "../edit-text/EditText";
 import './Card.css'
 import Cancel from "../cancel/Cancel";
+import {Draggable} from "react-beautiful-dnd";
 
 export default class Card extends React.Component {
     static propTypes = {
@@ -42,31 +43,40 @@ export default class Card extends React.Component {
 
     render() {
         return (
-            <div
-                ref={this.props.refInner}
-                className={`card-container`}>
-                {!this.state.isEditingCard ?
-                <div
-                    onDoubleClick={this.handleToEdit}
-                    className={`card`}
-                >
-                    {this.state.content}
-                    <div className={`card-removeBtn`}>
-                        <Cancel onClick={() => this.props.onRemove(this.props.id)}/>
+            <Draggable
+                draggableId={this.props.id}
+                index={this.props.index}
+            >
+                {(provided) => (
+                    <div
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        ref={provided.innerRef}
+                        className={`card-container`}>
+                        {!this.state.isEditingCard ?
+                            <div
+                                onDoubleClick={this.handleToEdit}
+                                className={`card`}
+                            >
+                                {this.state.content}
+                                <div className={`card-removeBtn`}>
+                                    <Cancel onClick={() => this.props.onRemove(this.props.id)}/>
+                                </div>
+                            </div> :
+                            <EditText
+                                visibleControls
+                                useBlurForComplete
+                                cancelOnBlurIfEmpty
+                                content={this.state.content}
+                                startRows={2}
+                                placeholder={`Введите название карточки`}
+                                buttonValue={`Изменить карточку`}
+                                onEdit={this.handleEdit}
+                                onCancel={this.handleCancel}
+                            />}
                     </div>
-                </div> :
-                <EditText
-                    visibleControls
-                    useBlurForComplete
-                    cancelOnBlurIfEmpty
-                    content={this.state.content}
-                    startRows={2}
-                    placeholder={`Введите название карточки`}
-                    buttonValue={`Изменить карточку`}
-                    onEdit={this.handleEdit}
-                    onCancel={this.handleCancel}
-                />}
-            </div>
+                )}
+            </Draggable>
         )
     }
 }

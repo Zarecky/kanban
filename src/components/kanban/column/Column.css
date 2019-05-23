@@ -5,10 +5,12 @@
     background: var(--main-bg-color);
     color: var(--main-color);
     border-radius: 3px;
+    width: 275px;
+    margin-right: 12px;
     max-height: fill-available;
 }
 
-.column-wrapper {
+.column-cardsContainer {
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -21,15 +23,15 @@
     box-sizing: border-box;
 }
 
-.column-wrapper:empty {
+.column-cardsContainer:empty {
     padding: 0 12px;
 }
 
-.column-wrapper:last-child {
+.column-cardsContainer:last-child {
     margin-bottom: 0;
 }
 
-.column-wrapper::-webkit-scrollbar{
+.column-cardsContainer::-webkit-scrollbar{
     display: none;
 }
 

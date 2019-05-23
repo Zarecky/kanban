@@ -4,6 +4,7 @@ import Cancel from "../cancel/Cancel";
 import './Column.css';
 import CreateCard from "../create-card/CreateCard";
 import EditText from "../edit-text/EditText";
+import {Draggable, Droppable} from "react-beautiful-dnd";
 
 export default class Column extends Component {
     static propTypes = {
@@ -20,8 +21,6 @@ export default class Column extends Component {
         this.state = {
             editTitle: false
         };
-
-        this.lastCard = React.createRef();
 
         this.handleEditTitle = this.handleEditTitle.bind(this);
         this.handleAddNewTitle = this.handleAddNewTitle.bind(this);
@@ -41,45 +40,64 @@ export default class Column extends Component {
 
     handleCreateCard(content) {
         this.props.onCreateCard(this.props.id, content);
-        console.log(this.lastCard.current);
-        this.lastCard.current.scrollIntoView(false);
     }
 
     render() {
         return (
-            <div className={`column`}>
-                {this.state.editTitle ?
-                <EditText
-                    useBlurForComplete
-                    cancelOnBlurIfEmpty
-                    placeholder={`Введите навзание колонки`}
-                    content={this.props.title}
-                    onEdit={this.handleAddNewTitle}
-                    onCancel={() => this.setState(() => ({editTitle: false}))}
-                /> :
-                <div className={`title-container`}>
-                    <h2
-                        onDoubleClick={this.handleEditTitle}
-                        className={`title`}>
-                        {this.props.title}
-                    </h2>
-                    <div className={`title-btnRemove`}>
-                        <Cancel onClick={() => this.props.onRemove(this.props.id)}/>
-                    </div>
-                </div>}
+            <Draggable
+                draggableId={this.props.id}
+                index={this.props.index}
+            >
+                {(outerProvided) => (
                     <div
-                        className={`column-wrapper`}>
-                        {React.Children.map(this.props.children, (child, i) => {
-                            if (i === React.Children.count(this.props.children) - 1) {
-                                const refInner = this.lastCard;
-                                return React.cloneElement(child, {refInner});
-                            } else return child;
-                        })}
+                        className={`column-wrapper`}
+                        {...outerProvided.draggableProps}
+                        ref={outerProvided.innerRef}
+                    >
+                        <Droppable
+                            droppableId={this.props.id}
+                            type={`card`}
+                        >
+                        {provided => (
+                            <div
+                                {...provided.droppableProps}
+                                ref={provided.innerRef}
+                                className={`column`}>
+                            {this.state.editTitle ?
+                                <EditText
+                                    useBlurForComplete
+                                    cancelOnBlurIfEmpty
+                                    placeholder={`Введите навзание колонки`}
+                                    content={this.props.title}
+                                    onEdit={this.handleAddNewTitle}
+                                    onCancel={() => this.setState(() => ({editTitle: false}))}
+                                /> :
+                                <div
+                                    {...outerProvided.dragHandleProps}
+                                    className={`title-container`}>
+                                    <h2
+                                        onDoubleClick={this.handleEditTitle}
+                                        className={`title`}>
+                                        {this.props.title}
+                                    </h2>
+                                    <div className={`title-btnRemove`}>
+                                        <Cancel onClick={() => this.props.onRemove(this.props.id)}/>
+                                    </div>
+                                </div>}
+                                    <div
+                                        className={`column-cardsContainer`}
+                                    >
+                                        {this.props.children}
+                                        {provided.placeholder}
+                                    </div>
+                            <CreateCard
+                                onClick={this.handleCreateCard}
+                            />
+                        </div>)}
+                        </Droppable>
                     </div>
-                <CreateCard
-                    onClick={this.handleCreateCard}
-                />
-            </div>
+                )}
+            </Draggable>
         );
     }
 }

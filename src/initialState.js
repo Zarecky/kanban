@@ -49,7 +49,7 @@ const initialState = {
         'column-1': {
             id: 'column-1',
             title: `План на месяц`,
-            cardsId: [
+            cardIds: [
                 'card-1',
                 'card-2',
                 'card-3',
@@ -63,7 +63,7 @@ const initialState = {
         'column-2': {
             id: 'column-2',
             title: `План на день`,
-            cardsId: [
+            cardIds: [
                 'card-9',
                 'card-10',
                 'card-11'
