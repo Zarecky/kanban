@@ -22,6 +22,8 @@ export default class Column extends Component {
             editTitle: false
         };
 
+        this.lastChild = React.createRef();
+
         this.handleEditTitle = this.handleEditTitle.bind(this);
         this.handleAddNewTitle = this.handleAddNewTitle.bind(this);
         this.handleCreateCard = this.handleCreateCard.bind(this);
@@ -40,9 +42,12 @@ export default class Column extends Component {
 
     handleCreateCard(content) {
         this.props.onCreateCard(this.props.id, content);
+        this.lastChild.current.scrollIntoView(false);
     }
 
     render() {
+        const countChildren = React.Children.count(this.props.children);
+
         return (
             <Draggable
                 draggableId={this.props.id}
@@ -87,11 +92,16 @@ export default class Column extends Component {
                                     <div
                                         className={`column-cardsContainer`}
                                     >
-                                        {this.props.children}
+                                        {React.Children.map(this.props.children, (child, i) => {
+                                            if (i === countChildren - 1) {
+                                                return React.cloneElement(child, {innerRef: this.lastChild, cancelMarginBottom: true});
+                                            }
+                                            return child;
+                                        })}
                                         {provided.placeholder}
                                     </div>
                             <CreateCard
-                                onClick={this.handleCreateCard}
+                                onCreate={this.handleCreateCard}
                             />
                         </div>)}
                         </Droppable>

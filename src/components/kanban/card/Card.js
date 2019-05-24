@@ -8,10 +8,11 @@ import {Draggable} from "react-beautiful-dnd";
 export default class Card extends React.Component {
     static propTypes = {
         id: PropTypes.string.isRequired,
-        refInner: PropTypes.object,
         content: PropTypes.string.isRequired,
         onEdit: PropTypes.func.isRequired,
-        onRemove: PropTypes.func.isRequired
+        onRemove: PropTypes.func.isRequired,
+        innerRef: PropTypes.object,
+        cancelMarginBottom: PropTypes.bool
     };
 
     constructor(props) {
@@ -52,9 +53,11 @@ export default class Card extends React.Component {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         ref={provided.innerRef}
-                        className={`card-container`}>
+                        className={`card-container`}
+                    >
                         {!this.state.isEditingCard ?
                             <div
+                                ref={this.props.innerRef}
                                 onDoubleClick={this.handleToEdit}
                                 className={`card`}
                             >

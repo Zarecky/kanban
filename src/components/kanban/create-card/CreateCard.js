@@ -5,7 +5,8 @@ import EditText from "../edit-text/EditText";
 
 export default class CreateCard extends React.Component {
     static propTypes = {
-        onClick: PropTypes.func.isRequired
+        onCreate: PropTypes.func.isRequired,
+        onVisibleForm: PropTypes.func
     };
 
     constructor(props) {
@@ -22,11 +23,14 @@ export default class CreateCard extends React.Component {
 
     handleToAddCard() {
         this.setState(() => ({isEditingCard: true}));
+        if (this.props.onVisibleForm != null) {
+            this.props.onVisibleForm();
+        }
     }
 
     handleAddCard(content) {
         this.handleCancel();
-        this.props.onClick(content);
+        this.props.onCreate(content);
     }
 
     handleCancel() {

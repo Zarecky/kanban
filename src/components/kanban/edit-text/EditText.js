@@ -79,7 +79,10 @@ export default class EditText extends React.Component {
 
     render() {
         return (
-            <div className={`editText`}>
+            <div
+                className={`editText`}
+                style={this.props.style}
+            >
                 <TextareaAutosize
                     ref={this.input}
                     rows={this.props.startRows}

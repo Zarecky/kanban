@@ -23,9 +23,6 @@
     position: relative;
 }
 
-.card:last-child {
-    margin-bottom: 0;
-}
 
 .card-removeBtn {
     display: none;
