@@ -7,25 +7,13 @@ import Card from "./card/Card";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 export default class Kanban extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    cards: initialState.cards,
+    columns: initialState.columns,
+    columnOrder: initialState.columnOrder,
+  };
 
-    this.state = {
-      cards: initialState.cards,
-      columns: initialState.columns,
-      columnOrder: initialState.columnOrder,
-    };
-
-    this.handleCreateColumn = this.handleCreateColumn.bind(this);
-    this.handleRemoveColumn = this.handleRemoveColumn.bind(this);
-    this.handleEditTitleColumn = this.handleEditTitleColumn.bind(this);
-    this.handleEditCard = this.handleEditCard.bind(this);
-    this.handleCreateCard = this.handleCreateCard.bind(this);
-    this.handleRemoveCard = this.handleRemoveCard.bind(this);
-    this.handleDragEnd = this.handleDragEnd.bind(this);
-  }
-
-  handleCreateColumn(title) {
+  handleCreateColumn = title => {
     const columns = Object.assign(this.state.columns);
     const columnOrder = Array.from(this.state.columnOrder);
 
@@ -44,9 +32,9 @@ export default class Kanban extends Component {
       columnOrder,
     };
     this.setState(() => newState);
-  }
+  };
 
-  handleCreateCard(columnId, content) {
+  handleCreateCard = (columnId, content) => {
     const cards = Object.assign(this.state.cards);
     const columns = Object.assign(this.state.columns);
 
@@ -63,9 +51,9 @@ export default class Kanban extends Component {
       cards,
     };
     this.setState(() => newState);
-  }
+  };
 
-  handleEditTitleColumn(title, id) {
+  handleEditTitleColumn = (title, id) => {
     const columns = Object.assign(this.state.columns);
     columns[id].title = title;
 
@@ -74,9 +62,9 @@ export default class Kanban extends Component {
       columns,
     };
     this.setState(() => newState);
-  }
+  };
 
-  handleRemoveColumn(id) {
+  handleRemoveColumn = id => {
     const columns = Object.assign(this.state.columns);
     const columnOrder = Array.from(this.state.columnOrder);
 
@@ -89,9 +77,9 @@ export default class Kanban extends Component {
       columnOrder,
     };
     this.setState(() => newState);
-  }
+  };
 
-  handleEditCard(id, content) {
+  handleEditCard = (id, content) => {
     const cards = Object.assign(this.state.cards);
     cards[id].content = content;
 
@@ -100,9 +88,9 @@ export default class Kanban extends Component {
       cards,
     };
     this.setState(() => newState);
-  }
+  };
 
-  handleRemoveCard(id) {
+  handleRemoveCard = id => {
     const cards = Object.assign(this.state.cards);
     const columns = Object.assign(this.state.columns);
 
@@ -121,9 +109,9 @@ export default class Kanban extends Component {
       cards,
     };
     this.setState(() => newState);
-  }
+  };
 
-  handleDragEnd(result) {
+  handleDragEnd = result => {
     const { destination, source, draggableId, type } = result;
 
     if (!destination) {
@@ -195,7 +183,7 @@ export default class Kanban extends Component {
       },
     };
     this.setState(() => newState);
-  }
+  };
 
   componentDidCatch(error, errorInfo) {
     console.error(error);
