@@ -1,57 +1,59 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 import AddButton from "../add-button/AddButton";
 import EditText from "../edit-text/EditText";
 
 export default class CreateColumn extends React.Component {
-    static propTypes = {
-        onClick: PropTypes.func.isRequired
+  static propTypes = {
+    onClick: PropTypes.func.isRequired,
+  };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isAddingTitle: false,
     };
 
-    constructor(props) {
-        super(props);
+    this.handleAddTitle = this.handleAddTitle.bind(this);
+    this.handleAddColumn = this.handleAddColumn.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
+  }
 
-        this.state = {
-            isAddingTitle: false
-        };
+  handleAddTitle() {
+    this.setState(() => ({ isAddingTitle: true }));
+  }
 
-        this.handleAddTitle = this.handleAddTitle.bind(this);
-        this.handleAddColumn = this.handleAddColumn.bind(this);
-        this.handleCancel = this.handleCancel.bind(this);
-    }
+  handleAddColumn(title) {
+    this.handleCancel();
+    this.props.onClick(title);
+  }
 
-    handleAddTitle() {
-        this.setState(() => ({isAddingTitle: true}));
-    }
+  handleCancel() {
+    this.setState(() => ({ isAddingTitle: false }));
+  }
 
-    handleAddColumn(title) {
-        this.handleCancel();
-        this.props.onClick(title);
-    }
-
-    handleCancel() {
-        this.setState(() => ({isAddingTitle: false}))
-    }
-
-
-    render() {
-        return (
-            <div className={`column`}>
-                {!this.state.isAddingTitle ?
-                <AddButton
-                    value={`Добавить еще одну колонку`}
-                    onClick={this.handleAddTitle}/> :
-                <EditText
-                    visibleControls
-                    useBlurForComplete
-                    cancelOnBlurIfEmpty
-                    content={this.state.title}
-                    placeholder={`Введите название колонки`}
-                    buttonValue={`Добавить колонку`}
-                    onEdit={this.handleAddColumn}
-                    onCancel={this.handleCancel}
-                />}
-            </div>
-        );
-    }
-};
+  render() {
+    return (
+      <div className={`column`}>
+        {!this.state.isAddingTitle ? (
+          <AddButton
+            value={`Добавить еще одну колонку`}
+            onClick={this.handleAddTitle}
+          />
+        ) : (
+          <EditText
+            visibleControls
+            useBlurForComplete
+            cancelOnBlurIfEmpty
+            content={this.state.title}
+            placeholder={`Введите название колонки`}
+            buttonValue={`Добавить колонку`}
+            onEdit={this.handleAddColumn}
+            onCancel={this.handleCancel}
+          />
+        )}
+      </div>
+    );
+  }
+}

@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import './index.css';
-import CreateColumn from './create-column/CreateColumn';
-import Column from './column/Column';
-import initialState from '../../initialState';
-import Card from './card/Card';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import React, { Component } from "react";
+import "./index.css";
+import CreateColumn from "./create-column/CreateColumn";
+import Column from "./column/Column";
+import initialState from "../../initialState";
+import Card from "./card/Card";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 export default class Kanban extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ export default class Kanban extends Component {
     this.state = {
       cards: initialState.cards,
       columns: initialState.columns,
-      columnOrder: initialState.columnOrder
+      columnOrder: initialState.columnOrder,
     };
 
     this.handleCreateColumn = this.handleCreateColumn.bind(this);
@@ -32,7 +32,7 @@ export default class Kanban extends Component {
     const newColumn = {
       id: `column-${columnOrder.length + 1}`,
       title,
-      cardIds: []
+      cardIds: [],
     };
 
     columnOrder.push(newColumn.id);
@@ -41,7 +41,7 @@ export default class Kanban extends Component {
     const newState = {
       ...this.state,
       columns,
-      columnOrder
+      columnOrder,
     };
     this.setState(() => newState);
   }
@@ -52,7 +52,7 @@ export default class Kanban extends Component {
 
     const newCard = {
       id: `card-${Object.keys(cards).length + 1}`,
-      content
+      content,
     };
     cards[newCard.id] = newCard;
     columns[columnId].cardIds.push(newCard.id);
@@ -60,7 +60,7 @@ export default class Kanban extends Component {
     const newState = {
       ...this.state,
       columns,
-      cards
+      cards,
     };
     this.setState(() => newState);
   }
@@ -71,7 +71,7 @@ export default class Kanban extends Component {
 
     const newState = {
       ...this.state,
-      columns
+      columns,
     };
     this.setState(() => newState);
   }
@@ -86,7 +86,7 @@ export default class Kanban extends Component {
     const newState = {
       ...this.state,
       columns,
-      columnOrder
+      columnOrder,
     };
     this.setState(() => newState);
   }
@@ -97,7 +97,7 @@ export default class Kanban extends Component {
 
     const newState = {
       ...this.state,
-      cards
+      cards,
     };
     this.setState(() => newState);
   }
@@ -118,7 +118,7 @@ export default class Kanban extends Component {
     const newState = {
       ...this.state,
       columns,
-      cards
+      cards,
     };
     this.setState(() => newState);
   }
@@ -143,7 +143,7 @@ export default class Kanban extends Component {
       newColumnOrder.splice(destination.index, 0, draggableId);
 
       this.setState(() => ({
-        columnOrder: newColumnOrder
+        columnOrder: newColumnOrder,
       }));
       return;
     }
@@ -158,15 +158,15 @@ export default class Kanban extends Component {
 
       const newColumn = {
         ...startColumn,
-        cardIds: newCardIds
+        cardIds: newCardIds,
       };
 
       const newState = {
         ...this.state,
         columns: {
           ...this.state.columns,
-          [newColumn.id]: newColumn
-        }
+          [newColumn.id]: newColumn,
+        },
       };
       this.setState(() => newState);
       return;
@@ -176,14 +176,14 @@ export default class Kanban extends Component {
     startCardIds.splice(source.index, 1);
     const newStartColumn = {
       ...startColumn,
-      cardIds: startCardIds
+      cardIds: startCardIds,
     };
 
     const finishCardIds = Array.from(finishColumn.cardIds);
     finishCardIds.splice(destination.index, 0, draggableId);
     const newFinishColumn = {
       ...finishColumn,
-      cardIds: finishCardIds
+      cardIds: finishCardIds,
     };
 
     const newState = {
@@ -191,8 +191,8 @@ export default class Kanban extends Component {
       columns: {
         ...this.state.columns,
         [newStartColumn.id]: newStartColumn,
-        [newFinishColumn.id]: newFinishColumn
-      }
+        [newFinishColumn.id]: newFinishColumn,
+      },
     };
     this.setState(() => newState);
   }
@@ -210,7 +210,7 @@ export default class Kanban extends Component {
           direction={`horizontal`}
           type={`column`}
         >
-          {(provided) => (
+          {provided => (
             <div
               className={`kanban`}
               {...provided.droppableProps}
@@ -219,7 +219,7 @@ export default class Kanban extends Component {
               {this.state.columnOrder.map((columnId, index) => {
                 const column = this.state.columns[columnId];
                 const cards = column.cardIds.map(
-                  (cardId) => this.state.cards[cardId]
+                  cardId => this.state.cards[cardId]
                 );
 
                 return (

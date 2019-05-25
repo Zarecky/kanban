@@ -10,12 +10,12 @@
     align-items: start;
     padding: 20px 21px;
 
-    --main-subject-color: #6B808C;
-    --main-placeholder-color: #B8B9BB;
-    --main-btn-bg-color: #39C071;
+    --main-subject-color: #6b808c;
+    --main-placeholder-color: #b8b9bb;
+    --main-btn-bg-color: #39c071;
     --main-btn-color: white;
     --main-color: black;
-    --main-bg-color: #DFE3E6;
+    --main-bg-color: #dfe3e6;
 }
 
 .icon {
