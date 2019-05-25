@@ -7,7 +7,7 @@
   position: absolute;
   display: flex;
   flex-direction: row;
-  align-items: start;
+  align-items: flex-start;
   padding: 20px 21px;
 
   --main-subject-color: #6b808c;
