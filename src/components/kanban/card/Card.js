@@ -15,32 +15,24 @@ export default class Card extends React.Component {
     cancelMarginBottom: PropTypes.bool,
   };
 
-  constructor(props) {
-    super(props);
+  state = {
+    isEditingCard: false,
+    content: this.props.content,
+  };
 
-    this.state = {
-      isEditingCard: false,
-      content: props.content,
-    };
-
-    this.handleToEdit = this.handleToEdit.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-  }
-
-  handleToEdit() {
+  handleToEdit = () => {
     this.setState(() => ({ isEditingCard: true }));
-  }
+  };
 
-  handleEdit(content) {
+  handleEdit = content => {
     this.handleCancel();
     this.setState(() => ({ content }));
     this.props.onEdit(this.props.id, content);
-  }
+  };
 
-  handleCancel() {
+  handleCancel = () => {
     this.setState(() => ({ isEditingCard: false }));
-  }
+  };
 
   render() {
     return (
