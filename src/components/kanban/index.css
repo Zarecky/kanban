@@ -1,25 +1,25 @@
 .kanban {
-    background: url("background.jpg") fixed center;
-    background-size: cover;
-    height: 100vh;
-    min-width: 100%;
-    box-sizing: border-box;
-    position: absolute;
-    display: flex;
-    flex-direction: row;
-    align-items: start;
-    padding: 20px 21px;
+  background: url("background.jpg") fixed center;
+  background-size: cover;
+  height: 100vh;
+  min-width: 100%;
+  box-sizing: border-box;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  padding: 20px 21px;
 
-    --main-subject-color: #6b808c;
-    --main-placeholder-color: #b8b9bb;
-    --main-btn-bg-color: #39c071;
-    --main-btn-color: white;
-    --main-color: black;
-    --main-bg-color: #dfe3e6;
+  --main-subject-color: #6b808c;
+  --main-placeholder-color: #b8b9bb;
+  --main-btn-bg-color: #39c071;
+  --main-btn-color: white;
+  --main-color: black;
+  --main-bg-color: #dfe3e6;
 }
 
 .icon {
-    color: var(--main-subject-color);
-    width: 15px;
-    height: 15px;
+  color: var(--main-subject-color);
+  width: 15px;
+  height: 15px;
 }

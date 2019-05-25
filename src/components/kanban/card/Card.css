@@ -1,39 +1,38 @@
 .card-container {
-    margin-bottom: 8px;
-    width: 100%;
+  margin-bottom: 8px;
+  width: 100%;
 }
 
 .card-container .editText {
-    padding: 0;
+  padding: 0;
 }
 
 .card {
-    padding: 8px 12px;
-    color: var(--main-color);
-    background: white;
-    border-radius: 3px;
-    width: 100%;
-    box-sizing: border-box;
-    box-shadow: 0 1px 4px rgba(9, 45, 66, 0.25);
-    font-family: "Montserrat", sans-serif;
-    font-size: 13px;
-    line-height: 19px;
-    white-space: pre-wrap;
-    word-break: break-word;
-    position: relative;
+  padding: 8px 12px;
+  color: var(--main-color);
+  background: white;
+  border-radius: 3px;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 1px 4px rgba(9, 45, 66, 0.25);
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  line-height: 19px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  position: relative;
 }
 
-
 .card-removeBtn {
-    display: none;
-    position: absolute;
-    right: 12px;
-    top: 8px;
-    background: white;
-    padding-left: 5px;
-    padding-bottom: 5px;
+  display: none;
+  position: absolute;
+  right: 12px;
+  top: 8px;
+  background: white;
+  padding-left: 5px;
+  padding-bottom: 5px;
 }
 
 .card:hover .card-removeBtn {
-    display: block;
+  display: block;
 }

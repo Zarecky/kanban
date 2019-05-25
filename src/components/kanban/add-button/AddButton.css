@@ -1,6 +1,6 @@
 .addButton {
-    display: flex;
-    align-items: center;
-    color: var(--main-subject-color);
-    margin: 12px;
+  display: flex;
+  align-items: center;
+  color: var(--main-subject-color);
+  margin: 12px;
 }
