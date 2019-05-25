@@ -1,19 +1,8 @@
-import React, {Component} from 'react';
-import Kanban from "./components/kanban/Kanban";
-;
+import React from 'react';
+import Kanban from './components/kanban/Kanban';
 
-export default class App extends Component {
-  static propTypes = {
+const App = () => {
+  return <Kanban />;
+};
 
-  };
-
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <Kanban/>
-    );
-  }
-}
+export default App;
