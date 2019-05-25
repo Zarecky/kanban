@@ -9,33 +9,25 @@ export default class CreateCard extends React.Component {
     onVisibleForm: PropTypes.func,
   };
 
-  constructor(props) {
-    super(props);
+  state = {
+    isAddingCard: false,
+  };
 
-    this.state = {
-      isAddingCard: false,
-    };
-
-    this.handleToAddCard = this.handleToAddCard.bind(this);
-    this.handleAddCard = this.handleAddCard.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-  }
-
-  handleToAddCard() {
+  handleToAddCard = () => {
     this.setState(() => ({ isEditingCard: true }));
     if (this.props.onVisibleForm != null) {
       this.props.onVisibleForm();
     }
-  }
+  };
 
-  handleAddCard(content) {
+  handleAddCard = content => {
     this.handleCancel();
     this.props.onCreate(content);
-  }
+  };
 
-  handleCancel() {
+  handleCancel = () => {
     this.setState(() => ({ isEditingCard: false, content: `` }));
-  }
+  };
 
   render() {
     return !this.state.isEditingCard ? (

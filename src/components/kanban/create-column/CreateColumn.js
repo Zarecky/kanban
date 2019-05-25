@@ -8,30 +8,22 @@ export default class CreateColumn extends React.Component {
     onClick: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
+  state = {
+    isAddingTitle: false,
+  };
 
-    this.state = {
-      isAddingTitle: false,
-    };
-
-    this.handleAddTitle = this.handleAddTitle.bind(this);
-    this.handleAddColumn = this.handleAddColumn.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-  }
-
-  handleAddTitle() {
+  handleAddTitle = () => {
     this.setState(() => ({ isAddingTitle: true }));
-  }
+  };
 
-  handleAddColumn(title) {
+  handleAddColumn = title => {
     this.handleCancel();
     this.props.onClick(title);
-  }
+  };
 
-  handleCancel() {
+  handleCancel = () => {
     this.setState(() => ({ isAddingTitle: false }));
-  }
+  };
 
   render() {
     return (

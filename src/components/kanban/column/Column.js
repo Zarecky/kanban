@@ -15,35 +15,27 @@ export default class Column extends Component {
     onCreateCard: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
+  state = {
+    editTitle: false,
+  };
 
-    this.state = {
-      editTitle: false,
-    };
+  lastChild = React.createRef();
 
-    this.lastChild = React.createRef();
-
-    this.handleEditTitle = this.handleEditTitle.bind(this);
-    this.handleAddNewTitle = this.handleAddNewTitle.bind(this);
-    this.handleCreateCard = this.handleCreateCard.bind(this);
-  }
-
-  handleEditTitle() {
+  handleEditTitle = () => {
     this.setState(() => ({ editTitle: true }));
-  }
+  };
 
-  handleAddNewTitle(title) {
+  handleAddNewTitle = title => {
     this.setState(() => ({
       editTitle: false,
     }));
     this.props.onEditTitle(title, this.props.id);
-  }
+  };
 
-  handleCreateCard(content) {
+  handleCreateCard = content => {
     this.props.onCreateCard(this.props.id, content);
     this.lastChild.current.scrollIntoView(false);
-  }
+  };
 
   render() {
     const countChildren = React.Children.count(this.props.children);
