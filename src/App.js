@@ -1,5 +1,5 @@
 import React from 'react';
-import Kanban from './components/kanban/Kanban';
+import Kanban from './components/kanban';
 
 const App = () => {
   return <Kanban />;
